@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2026-01-12" view-index="0" gantt-divider-location="552" resource-divider-location="300" version="3.3.3316" locale="es_ES">
+    <description/>
+    <view zooming-state="default:7" id="gantt-chart">
+        <field id="tpd3" name="Nombre" width="315" order="0"/>
+        <field id="tpd4" name="Fecha de inicio" width="118" order="1"/>
+        <field id="tpd5" name="Fecha de fin" width="118" order="2"/>
+        <field id="tpd15" name="Notas" width="20" order="3"/>
+        <option id="taskLabelUp" value="advancement"/>
+        <option id="taskLabelDown" value="name"/>
+        <option id="filter.completedTasks" value="false"/>
+        <option id="filter.dueTodayTasks" value="false"/>
+        <option id="filter.overdueTasks" value="false"/>
+        <option id="filter.inProgressTodayTasks" value="false"/>
+        <timeline><![CDATA[2]]></timeline>
+        <option id="color.recent"><![CDATA[#66ccff #0033cc #ccffcc #ccff00 #9999ff #9933ff #ff9999 #ff6666 #00ffcc #ffcc66]]></option>
+    </view>
+    <view id="resource-table">
+        <field id="0" name="Nombre" width="210" order="0"/>
+        <field id="1" name="Función" width="86" order="1"/>
+    </view>
+    <!-- -->
+    <calendars>
+        <day-types>
+            <day-type id="0"/>
+            <day-type id="1"/>
+            <default-week id="1" name="default" sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
+            <only-show-weekends value="false"/>
+            <overriden-day-types/>
+            <days/>
+        </day-types>
+    </calendars>
+    <tasks empty-milestones="true">
+        <taskproperties>
+            <taskproperty id="tpd0" name="type" type="default" valuetype="icon"/>
+            <taskproperty id="tpd1" name="priority" type="default" valuetype="icon"/>
+            <taskproperty id="tpd2" name="info" type="default" valuetype="icon"/>
+            <taskproperty id="tpd3" name="name" type="default" valuetype="text"/>
+            <taskproperty id="tpd4" name="begindate" type="default" valuetype="date"/>
+            <taskproperty id="tpd5" name="enddate" type="default" valuetype="date"/>
+            <taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
+            <taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
+            <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
+            <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
+        </taskproperties>
+        <task id="1" uid="cb3b7da4819b477eba1a763f454f9f8e" name="COA report" color="#33cc00" meeting="false" project="true" start="2026-01-13" duration="69" complete="97" thirdDate="2026-01-12" thirdDate-constraint="1" expand="true">
+            <task id="2" uid="79515da9d48841e6addd156079cc3aa0" name="Fase 1 Planeación y Análisis" color="#ffcc33" meeting="false" start="2026-01-13" duration="20" complete="100" expand="false">
+                <task id="10" uid="3652a1dc54d64c8bb013452385b5aea0" name="Levantamiento de requerimientos" color="#ffcc66" meeting="false" start="2026-01-13" duration="4" complete="100" expand="true"/>
+                <task id="9" uid="1fc9193d19464b5f829cb2c88a03de1a" name="Análisis del proceso COA" color="#ffcc66" meeting="false" start="2026-01-20" duration="5" complete="100" expand="true"/>
+                <task id="8" uid="49ea05f39b3340baa3fee5c351f746f9" name="Diseño de arquitectura del sistema" color="#ffcc66" meeting="false" start="2026-01-27" duration="5" complete="100" expand="true"/>
+                <task id="7" uid="f47704609f4a4825a1e124560428f8f7" name="Diseño de base de datos" color="#ffcc66" meeting="false" start="2026-02-03" duration="5" complete="100" expand="true"/>
+            </task>
+            <task id="3" uid="bee0550892d445f2897eb4c61157eb36" name="Fase 2 Desarrollo Iterativo" color="#ff6666" meeting="false" start="2026-02-02" duration="33" complete="100" expand="false">
+                <task id="12" uid="f0ab620d57a44871a819f05ef039edeb" name="Configuración del entorno (JavaFX)" color="#ff9999" meeting="false" start="2026-02-02" duration="5" complete="100" expand="true"/>
+                <task id="22" uid="41d1dcdbb904447ba6a7781219b76c79" name="Módulo CRUD Empresas" color="#ff9999" meeting="false" start="2026-02-09" duration="6" complete="100" expand="true"/>
+                <task id="21" uid="ca44ff7e3d8f41ba8d74ed712e5cc033" name="Módulo CRUD Infraestructura" color="#ff9999" meeting="false" start="2026-02-17" duration="8" complete="100" expand="true"/>
+                <task id="20" uid="2374edd259464adf820c1281c65ae26b" name="Módulo CRUD Emisiones y Residuos" color="#ff9999" meeting="false" start="2026-02-27" duration="6" complete="100" expand="true"/>
+                <task id="6" uid="9556ba27cc39477ab1009adba88cf14e" name="Importación de datos desde Excel" color="#ff9999" meeting="false" start="2026-03-11" duration="6" complete="100" expand="true"/>
+            </task>
+            <task id="11" uid="c09ada78c51942efb044ccd410f3328b" name="fase 3 Reportes y Validaciones" color="#9933ff" meeting="false" start="2026-03-19" duration="12" complete="100" expand="false">
+                <task id="4" uid="b4c52034a118495eb1ea1064d64b0444" name="Generación de reportes COA" color="#9999ff" meeting="false" start="2026-03-19" duration="7" complete="100" expand="true"/>
+                <task id="13" uid="8aa19f89597748c4997becdc5060aa37" name="Validaciones y reglas de negocio" color="#9999ff" meeting="false" start="2026-03-30" duration="5" complete="100" expand="true"/>
+            </task>
+            <task id="17" uid="1f76a6c598cd4106a4e63e78cbcd3e22" name="Fase 4 - Pruebas y Ajustes" color="#ccff00" meeting="false" start="2026-03-30" duration="13" complete="96" expand="true">
+                <task id="18" uid="6154e15fe8e345608e17697fc226731c" name="Pruebas funcionales" color="#ccffcc" meeting="false" start="2026-03-30" duration="8" complete="100" expand="true"/>
+                <task id="14" uid="e66f19b952d6469082507e59736b4e48" name="Corrección de errores y mejoras UX" color="#ccffcc" meeting="false" start="2026-04-09" duration="5" complete="90" expand="true"/>
+            </task>
+            <task id="15" uid="d8bdb2279a374470a79fd99720111938" name="Fase 5 - Cierre" color="#0033cc" meeting="false" start="2026-04-10" duration="6" complete="75" expand="true">
+                <task id="19" uid="3d4e8898d3b24497ad8063a28b2452b0" name="Documentación técnica y manual usuario" color="#66ccff" meeting="false" start="2026-04-10" duration="5" complete="90" expand="true"/>
+                <task id="16" uid="bda3d8b1146347fb9352cbb828893c8c" name="Implementación y entrega fina" meeting="false" start="2026-04-17" duration="1" complete="0" expand="true"/>
+            </task>
+        </task>
+    </tasks>
+    <resources/>
+    <allocations/>
+    <vacations/>
+    <previous/>
+    <roles roleset-name="Default"/>
+</project>
