@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COA-Report - Manual de Instalación</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 30px rgba(0,0,0,0.3);
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .content {
+            display: flex;
+            min-height: calc(100vh - 200px);
+        }
+
+        nav {
+            width: 250px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-right: 1px solid #ddd;
+            position: sticky;
+            top: 0;
+            height: fit-content;
+            max-height: 100vh;
+            overflow-y: auto;
+        }
+
+        nav ul {
+            list-style: none;
+        }
+
+        nav li {
+            margin: 10px 0;
+        }
+
+        nav a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            display: block;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        nav a:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        nav a.active {
+            background: #667eea;
+            color: white;
+        }
+
+        main {
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        section {
+            display: none;
+        }
+
+        section.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 2em;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: #764ba2;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .step {
+            background: #f8f9fa;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
+            border-radius: 4px;
+        }
+
+        .step h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 4px;
+            text-decoration: none;
+            margin: 10px 10px 10px 0;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .download-btn.secondary {
+            background: #6c757d;
+        }
+
+        .download-btn.secondary:hover {
+            box-shadow: 0 5px 15px rgba(108, 117, 125, 0.4);
+        }
+
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .success-box {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .error-box {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background: #f5f5f5;
+        }
+
+        code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #d63384;
+        }
+
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            line-height: 1.4;
+        }
+
+        pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+        }
+
+        .accordion {
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+
+        .accordion-header {
+            padding: 15px;
+            cursor: pointer;
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #667eea;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .accordion-header:hover {
+            background: #e9ecef;
+        }
+
+        .accordion-content {
+            display: none;
+            padding: 15px;
+            border-top: 1px solid #ddd;
+        }
+
+        .accordion.active .accordion-content {
+            display: block;
+        }
+
+        .accordion.active .accordion-header {
+            background: #667eea;
+            color: white;
+        }
+
+        footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #ddd;
+            color: #666;
+        }
+
+        .toc {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+        }
+
+        .toc h3 {
+            margin-top: 0;
+        }
+
+        .toc ul {
+            list-style: none;
+        }
+
+        .toc li {
+            margin: 5px 0;
+        }
+
+        .toc a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .toc a:hover {
+            text-decoration: underline;
+        }
+
+        .breadcrumb {
+            padding: 10px 0;
+            margin-bottom: 20px;
+            background: transparent;
+        }
+
+        .breadcrumb a {
+            color: #667eea;
+            text-decoration: none;
+            margin: 0 5px;
+        }
+
+        .system-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .system-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            border-left: 4px solid #667eea;
+        }
+
+        .system-item strong {
+            color: #667eea;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline-item {
+            margin: 20px 0;
+            padding-left: 40px;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            background: #667eea;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px #667eea;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 20px;
+            width: 3px;
+            height: calc(100% + 20px);
+            background: #667eea;
+        }
+
+        .timeline-item:last-child::after {
+            display: none;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        .card h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+
+            nav {
+                width: 100%;
+                max-height: none;
+                border-right: none;
+                border-bottom: 1px solid #ddd;
+            }
+
+            main {
+                padding: 20px;
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 1.8em;
+            }
+        }
+
+        .search-box {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📦 COA-Report</h1>
+            <p>Manual de Instalación - Versión 1.0.0</p>
+        </header>
+
+        <div class="content">
+            <nav>
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Buscar..." onkeyup="filterNav()">
+                </div>
+                <ul id="navMenu">
+                    <li><a href="#inicio" class="nav-link active" onclick="showSection('inicio')">🏠 Inicio</a></li>
+                    <li><a href="#requisitos" class="nav-link" onclick="showSection('requisitos')">✓ Requisitos</a></li>
+                    <li><a href="#descarga" class="nav-link" onclick="showSection('descarga')">⬇️ Descargas</a></li>
+                    <li><a href="#instalacion-linux" class="nav-link" onclick="showSection('instalacion-linux')">🐧 Instalación Linux</a></li>
+                    <li><a href="#instalacion-windows" class="nav-link" onclick="showSection('instalacion-windows')">🪟 Instalación Windows</a></li>
+                    <li><a href="#instalacion-mac" class="nav-link" onclick="showSection('instalacion-mac')">🍎 Instalación Mac</a></li>
+                    <li><a href="#primera-ejecucion" class="nav-link" onclick="showSection('primera-ejecucion')">🚀 Primera Ejecución</a></li>
+                    <li><a href="#configuracion" class="nav-link" onclick="showSection('configuracion')">⚙️ Configuración</a></li>
+                    <li><a href="#faq" class="nav-link" onclick="showSection('faq')">❓ FAQ</a></li>
+                    <li><a href="#troubleshooting" class="nav-link" onclick="showSection('troubleshooting')">🔧 Solución de Problemas</a></li>
+                </ul>
+            </nav>
+
+            <main>
+                <!-- INICIO -->
+                <section id="inicio" class="active">
+                    <h2>🏠 Bienvenida</h2>
+                    <p>Este manual te guiará paso a paso en la instalación de COA-Report en tu sistema.</p>
+                    
+                    <div class="toc">
+                        <h3>Tabla de Contenidos</h3>
+                        <ul>
+                            <li><a href="#requisitos" onclick="showSection('requisitos')">Requisitos del Sistema</a></li>
+                            <li><a href="#descarga" onclick="showSection('descarga')">Descargar Recursos</a></li>
+                            <li><a href="#instalacion-windows" onclick="showSection('instalacion-windows')">Instalación (Windows)</a></li>
+                            <li><a href="#primera-ejecucion" onclick="showSection('primera-ejecucion')">Primera Ejecución</a></li>
+                            <li><a href="#faq" onclick="showSection('faq')">Preguntas Frecuentes</a></li>
+                        </ul>
+                    </div>
+
+                    <h3>¿Qué es COA-Report?</h3>
+                    <p>COA-Report es un sistema de gestión integral de residuos peligrosos que permite:</p>
+                    <ul>
+                        <li>✅ Registrar y gestionar empresas, plantas y encargados</li>
+                        <li>✅ Crear manifiestos de residuos</li>
+                        <li>✅ Generar reportes automáticos</li>
+                        <li>✅ Exportar datos en múltiples formatos</li>
+                        <li>✅ Respaldar bases de datos</li>
+                    </ul>
+
+                    <div class="success-box">
+                        <strong>✅ Buena noticia:</strong> El instalador incluye todo lo necesario. ¡No necesitas instalar Java!
+                    </div>
+                </section>
+
+                <!-- REQUISITOS -->
+                <section id="requisitos">
+                    <h2>✓ Requisitos del Sistema</h2>
+                    
+                    <h3>Mínimos Recomendados</h3>
+                    <table>
+                        <tr>
+                            <th>Componente</th>
+                            <th>Mínimo</th>
+                            <th>Recomendado</th>
+                        </tr>
+                        <tr>
+                            <td>Procesador</td>
+                            <td>1.5 GHz</td>
+                            <td>2+ GHz</td>
+                        </tr>
+                        <tr>
+                            <td>RAM</td>
+                            <td>2 GB</td>
+                            <td>4+ GB</td>
+                        </tr>
+                        <tr>
+                            <td>Espacio Disco</td>
+                            <td>500 MB</td>
+                            <td>1+ GB</td>
+                        </tr>
+                        <tr>
+                            <td>Sistema Operativo</td>
+                            <td>Windows 7+</td>
+                            <td>Windows 10/11</td>
+                        </tr>
+                    </table>
+
+                    <h3>Sistema Operativo</h3>
+                    <div class="grid-2">
+                        <div class="card">
+                            <h4>🪟 Windows</h4>
+                            <p>Windows 7, 8, 10, 11 (32 y 64 bits)</p>
+                        </div>
+                        <div class="card">
+                            <h4>🍎 macOS</h4>
+                            <p>macOS 10.12+ (Intel y Apple Silicon)</p>
+                        </div>
+                        <div class="card">
+                            <h4>🐧 Linux</h4>
+                            <p>Ubuntu 18.04+, Fedora 30+, Debian 10+</p>
+                        </div>
+                        <div class="card">
+                            <h4>💾 Base de Datos</h4>
+                            <p>SQLite 3.8+ (incluido)</p>
+                        </div>
+                    </div>
+
+                    <div class="info-box">
+                        <strong>ℹ️ Nota:</strong> El instalador .MSI bundlea Java automáticamente. No necesitas instalarlo por separado.
+                    </div>
+                </section>
+
+                <!-- DESCARGAS -->
+                <section id="descarga">
+                    <h2>⬇️ Descargar COA-Report</h2>
+                    
+                    <h3>Archivo Principal</h3>
+                    <div class="step">
+                        <h4>COA-Report 1.0.0 - Instalador Windows</h4>
+                        <p>Instalador profesional para Windows 10/11</p>
+                        <a href="#" class="download-btn">📥 Descargar COA-Report-1.0.0.msi (190 MB)</a>
+                        <p style="font-size: 0.9em; color: #666; margin-top: 10px;">
+                            SHA256: <code>abc123def456...</code>
+                        </p>
+                    </div>
+
+                    <h3>Alternativas de Descarga</h3>
+                    <table>
+                        <tr>
+                            <th>Formato</th>
+                            <th>Tamaño</th>
+                            <th>Descripción</th>
+                            <th>Descargar</th>
+                        </tr>
+                        <tr>
+                            <td>.MSI</td>
+                            <td>190 MB</td>
+                            <td>Instalador estándar Windows</td>
+                            <td><a href="#" class="download-btn secondary">Descargar</a></td>
+                        </tr>
+                        <tr>
+                            <td>.EXE</td>
+                            <td>190 MB</td>
+                            <td>Ejecutable standalone</td>
+                            <td><a href="#" class="download-btn secondary">Descargar</a></td>
+                        </tr>
+                        <tr>
+                            <td>.ZIP</td>
+                            <td>210 MB</td>
+                            <td>Portátil (no requiere instalación)</td>
+                            <td><a href="#" class="download-btn secondary">Descargar</a></td>
+                        </tr>
+                    </table>
+
+                    <h3>Herramientas Recomendadas (si quieres compilar desde código)</h3>
+                    <div class="grid-2">
+                        <div class="card">
+                            <h4>☕ Java 21</h4>
+                            <p>Runtime necesario para ejecutar la aplicación</p>
+                            <a href="https://www.oracle.com/java/technologies/downloads/" class="download-btn secondary">Descargar Oracle Java 21</a>
+                        </div>
+                        <div class="card">
+                            <h4>🔨 Maven 3.9+</h4>
+                            <p>Build system para compilar el proyecto</p>
+                            <a href="https://maven.apache.org/download.cgi" class="download-btn secondary">Descargar Maven</a>
+                        </div>
+                        <div class="card">
+                            <h4>📦 WiX Toolset</h4>
+                            <p>Herramienta para generar instaladores MSI</p>
+                            <a href="https://wixtoolset.org/" class="download-btn secondary">Descargar WiX</a>
+                        </div>
+                        <div class="card">
+                            <h4>🐙 Git</h4>
+                            <p>Control de versiones (opcional)</p>
+                            <a href="https://git-scm.com/" class="download-btn secondary">Descargar Git</a>
+                        </div>
+                    </div>
+
+                    <div class="warning-box">
+                        <strong>⚠️ Importante:</strong> Solo necesitas descargar estas herramientas si vas a compilar desde código. El instalador .MSI ya incluye todo.
+                    </div>
+                </section>
+
+                <!-- INSTALACIÓN WINDOWS -->
+                <section id="instalacion-windows">
+                    <h2>🪟 Instalación en Windows</h2>
+                    
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <h3>Paso 1: Descargar el Instalador</h3>
+                            <p>Ve a la sección <a href="#" onclick="showSection('descarga')">Descargas</a> y descarga el archivo <code>COA-Report-1.0.0.msi</code></p>
+                        </div>
+
+                        <div class="timeline-item">
+                            <h3>Paso 2: Ejecutar el Instalador</h3>
+                            <p>Haz doble clic en el archivo <code>COA-Report-1.0.0.msi</code></p>
+                            <div class="info-box">Si ves un aviso de seguridad, haz clic en "Ejecutar" para continuar</div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <h3>Paso 3: Asistente de Instalación</h3>
+                            <p>Se abrirá el asistente de instalación. Sigue estos pasos:</p>
+                            <ol>
+                                <li>Lee y acepta la licencia (marca "I accept")</li>
+                                <li>Selecciona la carpeta de instalación (por defecto: <code>C:\Program Files\COA-Report\</code>)</li>
+                                <li>Haz clic en "Instalar"</li>
+                                <li>Espera a que termine (puede tomar 2-3 minutos)</li>
+                            </ol>
+                        </div>
+
+                        <div class="timeline-item">
+                            <h3>Paso 4: Finalizar</h3>
+                            <p>Cuando termine, marca "Crear acceso directo en el Escritorio" (opcional)</p>
+                            <p>Haz clic en "Finalizar"</p>
+                        </div>
+
+                        <div class="timeline-item">
+                            <h3>Paso 5: Iniciar la Aplicación</h3>
+                            <p>Busca "COA-Report" en el menú Inicio o haz doble clic en el acceso directo del escritorio</p>
+                            <div class="success-box">¡La aplicación está lista para usar!</div>
+                        </div>
+                    </div>
+
+                    <h3>Desinstalación</h3>
+                    <div class="step">
+                        <p>Para desinstalar COA-Report:</p>
+                        <ol>
+                            <li>Abre "Agregar o quitar programas" (desde Configuración)</li>
+                            <li>Busca "COA-Report"</li>
+                            <li>Haz clic en "Desinstalar"</li>
+                            <li>Confirma la acción</li>
+                        </ol>
+                        <p style="margin-top: 10px;">La base de datos se conservará en: <code>%APPDATA%\COA-Report\</code></p>
+                    </div>
+                </section>
+
+                <!-- INSTALACIÓN LINUX -->
+                <section id="instalacion-linux">
+                    <h2>🐧 Instalación en Linux</h2>
+                    
+                    <h3>Requisitos Previos</h3>
+                    <pre><code># Instalar Java 21 (Ubuntu/Debian)
+sudo apt-get update
+sudo apt-get install openjdk-21-jdk
+
+# Verificar instalación
+java -version</code></pre>
+
+                    <h3>Instalación del Instalador</h3>
+                    <div class="step">
+                        <h4>Opción A: Desde AppImage (recomendado)</h4>
+                        <pre><code>chmod +x COA-Report-1.0.0.AppImage
+./COA-Report-1.0.0.AppImage</code></pre>
+                    </div>
+
+                    <div class="step">
+                        <h4>Opción B: Desde ZIP portátil</h4>
+                        <pre><code>unzip COA-Report-1.0.0.zip
+cd COA-Report
+./COA-Report.sh</code></pre>
+                    </div>
+
+                    <div class="step">
+                        <h4>Opción C: Desde compilación</h4>
+                        <pre><code>git clone &lt;repositorio&gt;
+cd COA-Report-App
+mvn clean package
+bash generate-exe.sh</code></pre>
+                    </div>
+
+                    <h3>Ubicación de Datos</h3>
+                    <p>La base de datos se guarda en:</p>
+                    <code>~/.coa-report/coareport.db</code>
+
+                    <h3>Crear Acceso Directo en Menú</h3>
+                    <pre><code>sudo nano /usr/share/applications/coa-report.desktop
+
+# Copiar y pegar lo siguiente:
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=COA-Report
+Exec=/home/usuario/COA-Report/COA-Report.sh
+Icon=coa-report
+Categories=Application;
+Terminal=false</code></pre>
+                </section>
+
+                <!-- INSTALACIÓN MAC -->
+                <section id="instalacion-mac">
+                    <h2>🍎 Instalación en macOS</h2>
+                    
+                    <h3>Requisitos Previos</h3>
+                    <pre><code># Instalar Homebrew (si no lo tienes)
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# Instalar Java 21
+brew install openjdk@21
+
+# Verificar instalación
+java -version</code></pre>
+
+                    <h3>Instalación</h3>
+                    <div class="step">
+                        <h4>Opción A: Desde DMG (recomendado)</h4>
+                        <ol>
+                            <li>Abre el archivo <code>COA-Report-1.0.0.dmg</code></li>
+                            <li>Arrastra la aplicación a la carpeta Applications</li>
+                            <li>Abre Applications y haz doble clic en COA-Report</li>
+                            <li>Si ves alerta de seguridad, ve a Preferencias de Seguridad y permite la ejecución</li>
+                        </ol>
+                    </div>
+
+                    <div class="step">
+                        <h4>Opción B: Desde ZIP portátil</h4>
+                        <pre><code>unzip COA-Report-1.0.0.zip
+cd COA-Report
+./COA-Report.app/Contents/MacOS/COA-Report</code></pre>
+                    </div>
+
+                    <h3>Ubicación de Datos</h3>
+                    <p>La base de datos se guarda en:</p>
+                    <code>~/Library/Application Support/COA-Report/coareport.db</code>
+
+                    <div class="info-box">
+                        <strong>ℹ️ Nota:</strong> Si tienes un Mac con Apple Silicon (M1/M2), la aplicación se ejecutará sin problemas con emulación Rosetta.
+                    </div>
+                </section>
+
+                <!-- PRIMERA EJECUCIÓN -->
+                <section id="primera-ejecucion">
+                    <h2>🚀 Primera Ejecución</h2>
+                    
+                    <h3>Inicio de Sesión</h3>
+                    <div class="step">
+                        <h4>Credenciales por Defecto</h4>
+                        <table>
+                            <tr>
+                                <th>Campo</th>
+                                <th>Valor</th>
+                            </tr>
+                            <tr>
+                                <td>Usuario</td>
+                                <td><code>admin</code></td>
+                            </tr>
+                            <tr>
+                                <td>Contraseña</td>
+                                <td><code>admin123</code></td>
+                            </tr>
+                        </table>
+                        <div class="warning-box" style="margin-top: 15px;">
+                            <strong>⚠️ Importante:</strong> Cambia estas credenciales inmediatamente después del primer inicio
+                        </div>
+                    </div>
+
+                    <h3>Interfaz Principal</h3>
+                    <p>Después de iniciar sesión, verás estas pestañas:</p>
+                    <table>
+                        <tr>
+                            <th>Pestaña</th>
+                            <th>Descripción</th>
+                        </tr>
+                        <tr>
+                            <td>📋 Manifiestos</td>
+                            <td>Registra y gestiona manifiestos de residuos</td>
+                        </tr>
+                        <tr>
+                            <td>🏢 Empresas</td>
+                            <td>Gestiona empresas (generadoras, transportadoras, destino final)</td>
+                        </tr>
+                        <tr>
+                            <td>♻️ Residuos</td>
+                            <td>Catálogo de residuos peligrosos</td>
+                        </tr>
+                        <tr>
+                            <td>👥 Encargados</td>
+                            <td>Personal responsable de la gestión</td>
+                        </tr>
+                        <tr>
+                            <td>🏭 Plantas</td>
+                            <td>Ubicaciones dentro de cada empresa</td>
+                        </tr>
+                        <tr>
+                            <td>📊 Reportes</td>
+                            <td>Genera reportes y exporta datos</td>
+                        </tr>
+                    </table>
+
+                    <h3>Primeros Pasos</h3>
+                    <ol>
+                        <li>Ve a "Empresas" y registra tu primera empresa</li>
+                        <li>Crea "Plantas" asociadas a la empresa</li>
+                        <li>Registra "Encargados" responsables</li>
+                        <li>Configura "Residuos" en el catálogo</li>
+                        <li>Crea tu primer "Manifiesto"</li>
+                        <li>Genera "Reportes" para análisis</li>
+                    </ol>
+
+                    <div class="success-box">
+                        ✅ La aplicación viene con una base de datos de ejemplo para explorar
+                    </div>
+                </section>
+
+                <!-- CONFIGURACIÓN -->
+                <section id="configuracion">
+                    <h2>⚙️ Configuración</h2>
+                    
+                    <h3>Ubicación de Archivos</h3>
+                    <table>
+                        <tr>
+                            <th>Sistema</th>
+                            <th>Ubicación</th>
+                        </tr>
+                        <tr>
+                            <td>Windows</td>
+                            <td><code>C:\Users\[Usuario]\AppData\Roaming\COA-Report\</code></td>
+                        </tr>
+                        <tr>
+                            <td>Linux</td>
+                            <td><code>~/.coa-report/</code></td>
+                        </tr>
+                        <tr>
+                            <td>macOS</td>
+                            <td><code>~/Library/Application Support/COA-Report/</code></td>
+                        </tr>
+                    </table>
+
+                    <h3>Base de Datos</h3>
+                    <div class="step">
+                        <h4>Respaldar Base de Datos</h4>
+                        <p>Desde el menú Archivo → Respaldar BD</p>
+                        <p>Se crea un respaldo en: <code>backups/coareport_YYYYMMDD_HHMMSS.db</code></p>
+                    </div>
+
+                    <div class="step">
+                        <h4>Restaurar Datos</h4>
+                        <ol>
+                            <li>Cierra COA-Report</li>
+                            <li>Navega a la carpeta de datos</li>
+                            <li>Elimina <code>coareport.db</code></li>
+                            <li>Copia el respaldo renombrándolo como <code>coareport.db</code></li>
+                            <li>Abre COA-Report nuevamente</li>
+                        </ol>
+                    </div>
+
+                    <h3>Cambiar Contraseña</h3>
+                    <p>En la interfaz principal, ve a Archivo → Cambiar Contraseña (si está disponible)</p>
+
+                    <h3>Exportar Datos</h3>
+                    <p>Desde la pestaña Reportes:</p>
+                    <ul>
+                        <li>Genera reportes en Excel</li>
+                        <li>Exporta a CSV</li>
+                        <li>Crea reportes en PDF (próximas versiones)</li>
+                    </ul>
+                </section>
+
+                <!-- FAQ -->
+                <section id="faq">
+                    <h2>❓ Preguntas Frecuentes</h2>
+                    
+                    <div class="accordion">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            ¿Necesito Java instalado para usar COA-Report?
+                            <span>▼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p><strong>No.</strong> El instalador .MSI incluye Java automáticamente. Solo descarga y ejecuta el instalador.</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            ¿Dónde se guardan mis datos?
+                            <span>▼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>Los datos se guardan en una carpeta específica según tu sistema operativo (ver sección Configuración).</p>
+                            <p>Puedes respaldar desde el menú Archivo → Respaldar BD</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            ¿Puedo instalar COA-Report en múltiples computadoras?
+                            <span>▼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>Sí. El instalador puede instalarse en múltiples computadoras. Cada instalación tiene su propia base de datos.</p>
+                            <p>Para compartir datos, usa la función de respaldo y restauración.</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            ¿Qué navegadores soporta la aplicación?
+                            <span>▼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>COA-Report es una aplicación de escritorio (no web), así que no requiere navegador.</p>
+                            <p>Se ejecuta directamente en tu sistema operativo.</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            ¿Cuánto espacio en disco requiere?
+                            <span>▼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>La instalación requiere ~500 MB. La base de datos crece según los datos que registres.</p>
+                            <p>Típicamente, unos miles de registros ocupan menos de 10 MB.</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            ¿Es segura mi información?
+                            <span>▼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>Los datos se almacenan localmente en tu computadora con SQLite.</p>
+                            <p>Realiza respaldos periódicos desde Archivo → Respaldar BD</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            ¿Hay versión web o móvil?
+                            <span>▼</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>Actualmente solo existe la versión de escritorio (Windows, Linux, macOS).</p>
+                            <p>Las versiones web y móvil están en desarrollo para futuras releases.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TROUBLESHOOTING -->
+                <section id="troubleshooting">
+                    <h2>🔧 Solución de Problemas</h2>
+                    
+                    <h3>La aplicación no inicia</h3>
+                    <div class="error-box">
+                        <p><strong>Error:</strong> "El programa no pudo iniciarse"</p>
+                        <p><strong>Soluciones:</strong></p>
+                        <ol>
+                            <li>Reinicia tu computadora</li>
+                            <li>Desinstala y reinstala la aplicación</li>
+                            <li>Verifica que tengas espacio en disco suficiente</li>
+                            <li>En Windows, ejecuta como Administrador</li>
+                        </ol>
+                    </div>
+
+                    <h3>Error de base de datos</h3>
+                    <div class="error-box">
+                        <p><strong>Error:</strong> "No se pudo conectar a la base de datos"</p>
+                        <p><strong>Soluciones:</strong></p>
+                        <ol>
+                            <li>Verifica que tienes permiso de lectura/escritura en la carpeta de datos</li>
+                            <li>Comprueba que no hay otra instancia de COA-Report ejecutándose</li>
+                            <li>Elimina el archivo <code>coareport.db</code> para que se reinicialice</li>
+                            <li>Restaura desde un respaldo anterior</li>
+                        </ol>
+                    </div>
+
+                    <h3>Contraseña olvidada</h3>
+                    <div class="warning-box">
+                        <p><strong>⚠️ Solución:</strong></p>
+                        <ol>
+                            <li>Cierra la aplicación</li>
+                            <li>Elimina el archivo <code>coareport.db</code> de la carpeta de datos</li>
+                            <li>Abre COA-Report nuevamente (se recreará la BD)</li>
+                            <li>Usa las credenciales por defecto: <code>admin</code> / <code>admin123</code></li>
+                        </ol>
+                    </div>
+
+                    <h3>Problemas de rendimiento</h3>
+                    <div class="warning-box">
+                        <p><strong>Si la aplicación va lenta:</strong></p>
+                        <ol>
+                            <li>Comprueba que tienes suficiente RAM disponible</li>
+                            <li>Cierra otras aplicaciones</li>
+                            <li>Limpia el directorio de respaldos innecesarios</li>
+                            <li>Considera ejecutar desde SSD en lugar de HDD</li>
+                        </ol>
+                    </div>
+
+                    <h3>Exportar reportes no funciona</h3>
+                    <div class="error-box">
+                        <p><strong>Soluciones:</strong></p>
+                        <ol>
+                            <li>Verifica que tienes datos en la tabla correspondiente</li>
+                            <li>Comprueba que tienes permisos de escritura en la carpeta de descargas</li>
+                            <li>Intenta guardar en otra carpeta</li>
+                            <li>Verifica que tienes espacio en disco suficiente</li>
+                        </ol>
+                    </div>
+
+                    <h3>Contactar Soporte</h3>
+                    <div class="info-box">
+                        <p>Si los problemas persisten:</p>
+                        <ul>
+                            <li>📧 Email: soporte@coa-report.com</li>
+                            <li>🌐 Web: www.coa-report.com</li>
+                            <li>📱 Teléfono: +1 (XXX) XXX-XXXX</li>
+                            <li>🐞 Reportar Bug: issues@coa-report.com</li>
+                        </ul>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <footer>
+            <p>📖 Manual de Instalación - COA-Report v1.0.0 | © 2026 COA Team | Última actualización: 2026-04-16</p>
+        </footer>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Ocultar todas las secciones
+            const sections = document.querySelectorAll('section');
+            sections.forEach(s => s.classList.remove('active'));
+            
+            // Mostrar sección seleccionada
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Actualizar navegación
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active'));
+            document.querySelector(`[onclick="showSection('${sectionId}')"]`).classList.add('active');
+            
+            // Scroll al top
+            window.scrollTo(0, 0);
+        }
+
+        function toggleAccordion(header) {
+            const accordion = header.parentElement;
+            accordion.classList.toggle('active');
+        }
+
+        function filterNav() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toUpperCase();
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            navLinks.forEach(link => {
+                const text = link.textContent.toUpperCase();
+                if (text.includes(filter)) {
+                    link.style.display = 'block';
+                } else {
+                    link.style.display = 'none';
+                }
+            });
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(event) {
+            if (event.ctrlKey || event.metaKey) {
+                if (event.key === '/') {
+                    event.preventDefault();
+                    document.getElementById('searchInput').focus();
+                }
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && href !== '#inicio') {
+                    e.preventDefault();
+                    const targetId = href.substring(1);
+                    showSection(targetId);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

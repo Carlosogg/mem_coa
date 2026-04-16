@@ -1,0 +1,1638 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COA-Report - Manual Técnico</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 30px rgba(0,0,0,0.3);
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .content {
+            display: flex;
+            min-height: calc(100vh - 200px);
+        }
+
+        nav {
+            width: 250px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-right: 1px solid #ddd;
+            position: sticky;
+            top: 0;
+            height: fit-content;
+            max-height: 100vh;
+            overflow-y: auto;
+        }
+
+        nav ul {
+            list-style: none;
+        }
+
+        nav li {
+            margin: 10px 0;
+        }
+
+        nav a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            display: block;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        nav a:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        nav a.active {
+            background: #667eea;
+            color: white;
+        }
+
+        main {
+            flex: 1;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        section {
+            display: none;
+        }
+
+        section.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 2em;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: #764ba2;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .step {
+            background: #f8f9fa;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
+            border-radius: 4px;
+        }
+
+        .step h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .success-box {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .error-box {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background: #f5f5f5;
+        }
+
+        code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #d63384;
+        }
+
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            line-height: 1.4;
+        }
+
+        pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+        }
+
+        .accordion {
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+
+        .accordion-header {
+            padding: 15px;
+            cursor: pointer;
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #667eea;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .accordion-header:hover {
+            background: #e9ecef;
+        }
+
+        .accordion-content {
+            display: none;
+            padding: 15px;
+            border-top: 1px solid #ddd;
+        }
+
+        .accordion.active .accordion-content {
+            display: block;
+        }
+
+        .accordion.active .accordion-header {
+            background: #667eea;
+            color: white;
+        }
+
+        footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #ddd;
+            color: #666;
+        }
+
+        .search-box {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1em;
+        }
+
+        .card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            margin-bottom: 15px;
+        }
+
+        .card h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .api-method {
+            background: #f8f9fa;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid #28a745;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .api-method .signature {
+            color: #764ba2;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .api-method .description {
+            color: #333;
+            font-family: 'Segoe UI', sans-serif;
+            margin-bottom: 10px;
+        }
+
+        .api-method .params {
+            background: white;
+            padding: 10px;
+            border-radius: 3px;
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+
+            nav {
+                width: 100%;
+                max-height: none;
+                border-right: none;
+                border-bottom: 1px solid #ddd;
+            }
+
+            main {
+                padding: 20px;
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>⚙️ COA-Report</h1>
+            <p>Manual Técnico - Versión 1.0.0</p>
+        </header>
+
+        <div class="content">
+            <nav>
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Buscar..." onkeyup="filterNav()">
+                </div>
+                <ul id="navMenu">
+                    <li><a href="#arquitectura" class="nav-link active" onclick="showSection('arquitectura')">🏗️ Arquitectura</a></li>
+                    <li><a href="#estructura" class="nav-link" onclick="showSection('estructura')">📁 Estructura</a></li>
+                    <li><a href="#base-datos" class="nav-link" onclick="showSection('base-datos')">🗄️ Base de Datos</a></li>
+                    <li><a href="#api-interna" class="nav-link" onclick="showSection('api-interna')">🔌 API Interna</a></li>
+                    <li><a href="#desarrollo" class="nav-link" onclick="showSection('desarrollo')">👨‍💻 Desarrollo</a></li>
+                    <li><a href="#compilacion" class="nav-link" onclick="showSection('compilacion')">🔨 Compilación</a></li>
+                    <li><a href="#extension" class="nav-link" onclick="showSection('extension')">🔧 Extensión</a></li>
+                    <li><a href="#deployment" class="nav-link" onclick="showSection('deployment')">🚀 Deployment</a></li>
+                    <li><a href="#troubleshooting-tech" class="nav-link" onclick="showSection('troubleshooting-tech')">🔍 Debugging</a></li>
+                </ul>
+            </nav>
+
+            <main>
+                <!-- ARQUITECTURA -->
+                <section id="arquitectura" class="active">
+                    <h2>🏗️ Arquitectura de la Aplicación</h2>
+                    
+                    <h3>Patrón MVC (Model-View-Controller)</h3>
+                    <p>COA-Report sigue una arquitectura MVC clásica con separación clara de responsabilidades:</p>
+                    
+                    <div class="grid-2">
+                        <div class="card">
+                            <h4>🎨 Vista (JavaFX)</h4>
+                            <p><strong>Tecnología:</strong> JavaFX 17</p>
+                            <p><strong>Archivos:</strong> FXML files en <code>src/main/resources</code></p>
+                            <p>Define la interfaz gráfica usando archivos FXML declarativos.</p>
+                        </div>
+                        <div class="card">
+                            <h4>🎮 Controlador</h4>
+                            <p><strong>Ubicación:</strong> <code>com.coa.ui.*Controller.java</code></p>
+                            <p>Lógica de interacción entre vista y modelo, event handlers.</p>
+                        </div>
+                        <div class="card">
+                            <h4>📊 Modelo</h4>
+                            <p><strong>Ubicación:</strong> <code>com.coa.model.*</code></p>
+                            <p>POJOs que representan entidades: Usuario, Empresa, Residuo, etc.</p>
+                        </div>
+                        <div class="card">
+                            <h4>💾 Persistencia</h4>
+                            <p><strong>Ubicación:</strong> <code>com.coa.dao.*DAO.java</code></p>
+                            <p>Data Access Objects para comunicación con base de datos SQLite.</p>
+                        </div>
+                    </div>
+
+                    <h3>Flujo de Datos</h3>
+                    <pre><code>Usuario (Input)
+       ↓
+   Controlador (Event Handler)
+       ↓
+   Servicio/Lógica (Business Logic)
+       ↓
+   DAO (Data Persistence)
+       ↓
+   Base de Datos (SQLite)
+       ↓
+   DAO (Query Results)
+       ↓
+   Modelo (Data Transfer)
+       ↓
+   Controlador (Update State)
+       ↓
+   Vista (JavaFX Refresh)
+       ↓
+Pantalla (Output)</code></pre>
+
+                    <h3>Stack Tecnológico</h3>
+                    <table>
+                        <tr>
+                            <th>Componente</th>
+                            <th>Tecnología</th>
+                            <th>Versión</th>
+                            <th>Propósito</th>
+                        </tr>
+                        <tr>
+                            <td>GUI Framework</td>
+                            <td>JavaFX</td>
+                            <td>17.0.1</td>
+                            <td>Interfaz gráfica moderna y responsiva</td>
+                        </tr>
+                        <tr>
+                            <td>Database</td>
+                            <td>SQLite</td>
+                            <td>3.44.0.0</td>
+                            <td>Base de datos embebida sin servidor</td>
+                        </tr>
+                        <tr>
+                            <td>JDBC Driver</td>
+                            <td>SQLite JDBC</td>
+                            <td>3.44.0.0</td>
+                            <td>Conexión Java a SQLite</td>
+                        </tr>
+                        <tr>
+                            <td>Excel Export</td>
+                            <td>Apache POI</td>
+                            <td>5.0.0</td>
+                            <td>Exportación a formatos Excel</td>
+                        </tr>
+                        <tr>
+                            <td>Logging</td>
+                            <td>SLF4J + Logback</td>
+                            <td>1.7.36</td>
+                            <td>Sistema de logs estructurado</td>
+                        </tr>
+                        <tr>
+                            <td>Build Tool</td>
+                            <td>Maven</td>
+                            <td>3.9+</td>
+                            <td>Gestión de dependencias y compilación</td>
+                        </tr>
+                        <tr>
+                            <td>Packager</td>
+                            <td>JPackage</td>
+                            <td>Java 21</td>
+                            <td>Crear instaladores nativos</td>
+                        </tr>
+                    </table>
+
+                    <div class="info-box">
+                        <strong>ℹ️ Nota:</strong> La aplicación es completamente independiente - no requiere servidor externo, Java preinstalado en el usuario final, o conexión a internet después de instalarse.
+                    </div>
+                </section>
+
+                <!-- ESTRUCTURA -->
+                <section id="estructura">
+                    <h2>📁 Estructura del Proyecto</h2>
+                    
+                    <h3>Directorios Principales</h3>
+                    <pre><code>COA-Report-App/
+├── src/
+│   └── main/
+│       ├── java/com/coa/
+│       │   ├── COAReportApplication.java    (Entry point)
+│       │   ├── model/                       (Modelos de datos)
+│       │   │   ├── Usuario.java
+│       │   │   ├── Empresa.java
+│       │   │   ├── Encargado.java
+│       │   │   ├── Planta.java
+│       │   │   ├── Residuo.java
+│       │   │   └── Manifiesto.java
+│       │   ├── dao/                         (Data Access Objects)
+│       │   │   ├── UsuarioDAO.java
+│       │   │   ├── EmpresaDAO.java
+│       │   │   ├── EncargadoDAO.java
+│       │   │   ├── PlantaDAO.java
+│       │   │   ├── ResiduoDAO.java
+│       │   │   └── ManifiestoDAO.java
+│       │   ├── service/                     (Servicios de negocio)
+│       │   │   ├── AuthenticationService.java
+│       │   │   ├── ReportService.java
+│       │   │   ├── ImportService.java
+│       │   │   └── BackupService.java
+│       │   ├── ui/                          (Controladores y FXML)
+│       │   │   ├── LoginController.java
+│       │   │   ├── MainController.java
+│       │   │   ├── ManifiestoDialogController.java
+│       │   │   └── *.fxml
+│       │   └── util/
+│       │       ├── DatabaseManager.java     (Gestor de BD)
+│       │       └── PasswordUtils.java       (Hash de contraseñas)
+│       └── resources/
+│           ├── schema.sql                   (Script creación BD)
+│           ├── styles.css                   (Estilos JavaFX)
+│           └── icons/                       (Iconos de aplicación)
+├── target/
+│   └── coa-report-1.0.0-jar-with-dependencies.jar
+├── pom.xml                                  (Configuración Maven)
+├── run-coa.sh                               (Script ejecución Linux)
+├── build.sh                                 (Script compilación)
+└── coareport.db                             (Base de datos SQLite)</code></pre>
+
+                    <h3>Descripción de Componentes Clave</h3>
+                    <div class="accordion">
+                        <div class="accordion-header">
+                            📦 Model Package (com.coa.model)
+                            <span>+</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>Contiene las clases POJO que representan entidades del negocio:</p>
+                            <ul>
+                                <li><strong>Usuario:</strong> Usuarios del sistema con autenticación</li>
+                                <li><strong>Empresa:</strong> Empresas (generadoras, transportadoras, destino final)</li>
+                                <li><strong>Encargado:</strong> Personal responsable de residuos</li>
+                                <li><strong>Planta:</strong> Plantas pertenecientes a empresas</li>
+                                <li><strong>Residuo:</strong> Tipos de residuos peligrosos (CRETIB)</li>
+                                <li><strong>Manifiesto:</strong> Registros de movimiento de residuos</li>
+                            </ul>
+                            <p style="margin-top: 10px;"><strong>Patrón Soft-Delete:</strong> Todos los modelos incluyen campo <code>activo (INTEGER)</code> para mantener histórico.</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion">
+                        <div class="accordion-header">
+                            💾 DAO Package (com.coa.dao)
+                            <span>+</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>Data Access Objects para cada entidad del modelo. Cada DAO implementa:</p>
+                            <ul>
+                                <li><code>create(T entity)</code> - Insertar nuevo registro</li>
+                                <li><code>read(int id)</code> - Obtener un registro por ID</li>
+                                <li><code>update(T entity)</code> - Actualizar registro existente</li>
+                                <li><code>delete(int id)</code> - Soft-delete (marcar como inactivo)</li>
+                                <li><code>getAll()</code> - Obtener todos (solo activos por defecto)</li>
+                                <li><code>search(String criteria)</code> - Búsqueda avanzada</li>
+                            </ul>
+                            <p style="margin-top: 10px;"><strong>Importante:</strong> SQLite JDBC no soporta <code>RETURN_GENERATED_KEYS</code>. Usamos <code>SELECT last_insert_rowid()</code> para obtener IDs generados.</p>
+                        </div>
+                    </div>
+
+                    <div class="accordion">
+                        <div class="accordion-header">
+                            🎯 Service Package (com.coa.service)
+                            <span>+</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>Servicios de negocio de nivel superior:</p>
+                            <ul>
+                                <li><strong>AuthenticationService:</strong> Autenticación y autorización de usuarios</li>
+                                <li><strong>ReportService:</strong> Generación de reportes en Excel/PDF</li>
+                                <li><strong>ImportService:</strong> Importación de datos desde archivos</li>
+                                <li><strong>BackupService:</strong> Copia de seguridad y restauración de BD</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="accordion">
+                        <div class="accordion-header">
+                            🎨 UI Package (com.coa.ui)
+                            <span>+</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>Controladores de JavaFX que manejan la interfaz:</p>
+                            <ul>
+                                <li><strong>LoginController:</strong> Pantalla de autenticación</li>
+                                <li><strong>MainController:</strong> Pantalla principal y navegación</li>
+                                <li><strong>*DialogController:</strong> Diálogos para CRUD y reportes</li>
+                            </ul>
+                            <p style="margin-top: 10px;">Todos los controladores siguen convención: cada FXML tiene un controlador asociado usando <code>fx:controller</code></p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- BASE DE DATOS -->
+                <section id="base-datos">
+                    <h2>🗄️ Base de Datos SQLite</h2>
+                    
+                    <h3>Esquema de Tablas</h3>
+                    <p>La base de datos consta de 6 tablas principales relacionadas entre sí:</p>
+
+                    <div class="step">
+                        <h4>USUARIOS</h4>
+                        <p>Almacena autenticación y autorización de usuarios del sistema.</p>
+                        <pre><code>CREATE TABLE USUARIOS (
+    id_usuario       INTEGER PRIMARY KEY AUTOINCREMENT,
+    nombre_usuario   TEXT    NOT NULL UNIQUE,
+    contrasena_hash  TEXT    NOT NULL,
+    rol              TEXT    NOT NULL (ADMIN | USUARIO),
+    activo           INTEGER NOT NULL DEFAULT 1,
+    fecha_creacion   TEXT    NOT NULL DEFAULT (datetime('now', 'localtime'))
+)</code></pre>
+                        <p><strong>Campos:</strong></p>
+                        <ul>
+                            <li><code>id_usuario:</code> PK - Identificador único del usuario</li>
+                            <li><code>nombre_usuario:</code> Unique - Login único por usuario</li>
+                            <li><code>contrasena_hash:</code> Hash SHA-256 de contraseña</li>
+                            <li><code>rol:</code> ADMIN o USUARIO (control de acceso)</li>
+                            <li><code>activo:</code> Soft-delete (1=activo, 0=inactivo)</li>
+                        </ul>
+                    </div>
+
+                    <div class="step">
+                        <h4>EMPRESAS</h4>
+                        <p>Catálogo de empresas involucradas en la gestión de residuos.</p>
+                        <pre><code>CREATE TABLE EMPRESAS (
+    id_empresa  INTEGER PRIMARY KEY AUTOINCREMENT,
+    nombre      TEXT    NOT NULL,
+    nra         TEXT    UNIQUE,
+    tipo        TEXT    NOT NULL (GENERADORA | TRANSPORTADORA | DESTINO_FINAL),
+    contacto    TEXT,
+    telefono    TEXT,
+    direccion   TEXT,
+    activo      INTEGER NOT NULL DEFAULT 1
+)</code></pre>
+                        <p><strong>Tipos:</strong> GENERADORA (crea residuos), TRANSPORTADORA, DESTINO_FINAL (procesamiento)</p>
+                    </div>
+
+                    <div class="step">
+                        <h4>PLANTAS</h4>
+                        <p>Plantas pertenecientes a cada empresa (relación 1:N con EMPRESAS).</p>
+                        <pre><code>CREATE TABLE PLANTAS (
+    id_planta      INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_empresa     INTEGER NOT NULL REFERENCES EMPRESAS(id_empresa) ON DELETE CASCADE,
+    nombre         TEXT    NOT NULL,
+    codigo         TEXT    UNIQUE,
+    direccion      TEXT,
+    responsable    TEXT,
+    telefono       TEXT,
+    activo         INTEGER NOT NULL DEFAULT 1
+)</code></pre>
+                    </div>
+
+                    <div class="step">
+                        <h4>RESIDUOS</h4>
+                        <p>Catálogo de tipos de residuos con clasificación CRETIB.</p>
+                        <pre><code>CREATE TABLE RESIDUOS (
+    id_residuo    INTEGER PRIMARY KEY AUTOINCREMENT,
+    nombre        TEXT    NOT NULL,
+    clave_cretib  TEXT    NOT NULL,
+    unidad_medida TEXT    NOT NULL (KG | LT | TON | M3),
+    descripcion   TEXT,
+    activo        INTEGER NOT NULL DEFAULT 1
+)</code></pre>
+                        <p><strong>CRETIB:</strong> Corrosivo, Reactivo, Explosivo, Tóxico, Inflamable, Biológico</p>
+                    </div>
+
+                    <div class="step">
+                        <h4>ENCARGADOS</h4>
+                        <p>Personal responsable de la gestión de residuos por empresa.</p>
+                        <pre><code>CREATE TABLE ENCARGADOS (
+    id_encargado    INTEGER PRIMARY KEY AUTOINCREMENT,
+    nombre_completo TEXT    NOT NULL,
+    cargo           TEXT,
+    empresa_id      INTEGER REFERENCES EMPRESAS(id_empresa),
+    activo          INTEGER NOT NULL DEFAULT 1
+)</code></pre>
+                    </div>
+
+                    <div class="step">
+                        <h4>MANIFIESTOS (Tabla Central)</h4>
+                        <p>Registro detallado de todos los movimientos de residuos peligrosos.</p>
+                        <pre><code>CREATE TABLE MANIFIESTOS (
+    id_manifiesto              INTEGER PRIMARY KEY AUTOINCREMENT,
+    num_manifiesto             TEXT    NOT NULL UNIQUE,
+    id_empresa_generadora      INTEGER NOT NULL REFERENCES EMPRESAS(id_empresa),
+    id_residuo                 INTEGER NOT NULL REFERENCES RESIDUOS(id_residuo),
+    cretib                     TEXT    NOT NULL,
+    cantidad                   REAL    NOT NULL CHECK (cantidad > 0),
+    unidad                     TEXT    NOT NULL,
+    fecha_recoleccion          TEXT    NOT NULL,
+    fecha_acopio               TEXT,
+    nra                        TEXT,
+    placas_vehiculo            TEXT,
+    id_empresa_transportadora  INTEGER REFERENCES EMPRESAS(id_empresa),
+    autorizacion_transportista TEXT,
+    destino_final              TEXT    NOT NULL,
+    autorizacion_destino_final TEXT,
+    id_encargado               INTEGER REFERENCES ENCARGADOS(id_encargado),
+    observaciones              TEXT,
+    fecha_registro             TEXT    NOT NULL DEFAULT (datetime('now', 'localtime')),
+    id_usuario_registro        INTEGER REFERENCES USUARIOS(id_usuario)
+)</code></pre>
+                    </div>
+
+                    <h3>Índices para Optimización</h3>
+                    <pre><code>CREATE INDEX idx_manifest_fecha    ON MANIFIESTOS(fecha_recoleccion);
+CREATE INDEX idx_manifest_empresa  ON MANIFIESTOS(id_empresa_generadora);
+CREATE INDEX idx_manifest_residuo  ON MANIFIESTOS(id_residuo);
+CREATE INDEX idx_manifest_num      ON MANIFIESTOS(num_manifiesto);
+CREATE INDEX idx_empresa_tipo      ON EMPRESAS(tipo);
+CREATE INDEX idx_residuo_activo    ON RESIDUOS(activo);
+CREATE INDEX idx_usuarios_activo   ON USUARIOS(activo);
+CREATE INDEX idx_plantas_empresa   ON PLANTAS(id_empresa);</code></pre>
+
+                    <h3>Patrones y Consideraciones</h3>
+                    <ul>
+                        <li><strong>Foreign Keys:</strong> Habilitadas con <code>PRAGMA foreign_keys = ON</code></li>
+                        <li><strong>Soft-Delete:</strong> Campo <code>activo</code> mantiene histórico</li>
+                        <li><strong>Timestamps:</strong> Automáticos con <code>datetime('now', 'localtime')</code></li>
+                        <li><strong>Constraints:</strong> Validaciones a nivel BD (CHECK, NOT NULL, UNIQUE)</li>
+                        <li><strong>Cascada:</strong> Eliminación en cascada para plantas cuando se elimina empresa</li>
+                    </ul>
+
+                    <div class="info-box">
+                        <strong>ℹ️ Inicialización:</strong> El script <code>schema.sql</code> se ejecuta automáticamente en <code>DatabaseManager.initializeDatabase()</code> cuando se inicia la aplicación.
+                    </div>
+                </section>
+
+                <!-- API INTERNA -->
+                <section id="api-interna">
+                    <h2>🔌 API Interna</h2>
+                    
+                    <h3>DatabaseManager</h3>
+                    <p>Clase singleton que gestiona la conexión con la base de datos.</p>
+
+                    <div class="api-method">
+                        <div class="signature">public static Connection getConnection() throws Exception</div>
+                        <div class="description">Obtiene la conexión a la base de datos (singleton pattern).</div>
+                        <div class="params">
+                            <strong>Returns:</strong> Connection a la BD SQLite<br>
+                            <strong>Throws:</strong> Exception si hay problemas de conexión
+                        </div>
+                    </div>
+
+                    <div class="api-method">
+                        <div class="signature">public static void initializeDatabase() throws Exception</div>
+                        <div class="description">Inicializa la BD ejecutando schema.sql si no existe.</div>
+                        <div class="params">
+                            <strong>Efecto:</strong> Crea todas las tablas, índices y datos iniciales
+                        </div>
+                    </div>
+
+                    <h3>DAO Methods (Standard CRUD)</h3>
+                    <p>Todos los DAOs implementan este patrón:</p>
+
+                    <div class="api-method">
+                        <div class="signature">public T create(T entity) throws Exception</div>
+                        <div class="description">Inserta un nuevo registro en la BD.</div>
+                        <div class="params">
+                            <strong>Parameter:</strong> entity - Objeto del modelo a insertar<br>
+                            <strong>Returns:</strong> El objeto insertado con ID generado<br>
+                            <strong>Nota:</strong> Usa SELECT last_insert_rowid() para obtener ID
+                        </div>
+                    </div>
+
+                    <div class="api-method">
+                        <div class="signature">public T read(int id) throws Exception</div>
+                        <div class="description">Obtiene un registro activo por ID.</div>
+                        <div class="params">
+                            <strong>Parameter:</strong> id - Identificador del registro<br>
+                            <strong>Returns:</strong> Objeto del modelo o null si no existe
+                        </div>
+                    </div>
+
+                    <div class="api-method">
+                        <div class="signature">public void update(T entity) throws Exception</div>
+                        <div class="description">Actualiza un registro existente.</div>
+                        <div class="params">
+                            <strong>Parameter:</strong> entity - Objeto con datos actualizados<br>
+                            <strong>Requiere:</strong> entity.id debe ser válido
+                        </div>
+                    </div>
+
+                    <div class="api-method">
+                        <div class="signature">public void delete(int id) throws Exception</div>
+                        <div class="description">Elimina (soft-delete) un registro marcándolo como inactivo.</div>
+                        <div class="params">
+                            <strong>Parameter:</strong> id - Identificador a eliminar<br>
+                            <strong>Efecto:</strong> Establece activo=0, no borra datos
+                        </div>
+                    </div>
+
+                    <div class="api-method">
+                        <div class="signature">public List&lt;T&gt; getAll() throws Exception</div>
+                        <div class="description">Obtiene todos los registros activos (activo=1).</div>
+                        <div class="params">
+                            <strong>Returns:</strong> List de objetos activos
+                        </div>
+                    </div>
+
+                    <h3>AuthenticationService</h3>
+                    
+                    <div class="api-method">
+                        <div class="signature">public static Usuario authenticate(String username, String password) throws Exception</div>
+                        <div class="description">Verifica credenciales de usuario.</div>
+                        <div class="params">
+                            <strong>Parameters:</strong><br>
+                            - username: Nombre de usuario<br>
+                            - password: Contraseña en texto plano<br>
+                            <strong>Returns:</strong> Usuario si es válido, null si no<br>
+                            <strong>Hash:</strong> Compara con SHA-256 almacenado
+                        </div>
+                    </div>
+
+                    <div class="api-method">
+                        <div class="signature">public static String hashPassword(String password)</div>
+                        <div class="description">Genera hash SHA-256 de una contraseña.</div>
+                        <div class="params">
+                            <strong>Parameter:</strong> password - Texto plano<br>
+                            <strong>Returns:</strong> Hash hexadecimal SHA-256
+                        </div>
+                    </div>
+
+                    <h3>ReportService</h3>
+                    
+                    <div class="api-method">
+                        <div class="signature">public static void exportToExcel(List&lt;Manifiesto&gt; manifiestos, String filePath) throws Exception</div>
+                        <div class="description">Exporta manifiestos a archivo Excel (.xlsx).</div>
+                        <div class="params">
+                            <strong>Parameters:</strong><br>
+                            - manifiestos: Lista de registros a exportar<br>
+                            - filePath: Ruta del archivo a generar<br>
+                            <strong>Tecnología:</strong> Apache POI
+                        </div>
+                    </div>
+
+                    <div class="api-method">
+                        <div class="signature">public static byte[] generatePDF(List&lt;Manifiesto&gt; manifiestos) throws Exception</div>
+                        <div class="description">Genera reporte en PDF para descarga.</div>
+                        <div class="params">
+                            <strong>Parameter:</strong> manifiestos - Datos para el reporte<br>
+                            <strong>Returns:</strong> Array de bytes del PDF<br>
+                            <strong>Formato:</strong> Tabla con encabezados y paginación
+                        </div>
+                    </div>
+
+                    <h3>Ejemplo de Uso - Crear Empresa</h3>
+                    <pre><code>// 1. Crear objeto modelo
+Empresa empresa = new Empresa();
+empresa.setNombre("Ejemplo S.A.");
+empresa.setNra("NRA123");
+empresa.setTipo("GENERADORA");
+empresa.setContacto("info@ejemplo.com");
+
+// 2. Usar DAO para persistir
+EmpresaDAO dao = new EmpresaDAO();
+empresa = dao.create(empresa);  // Retorna con ID asignado
+
+// 3. Refrescar UI con los datos persistidos
+System.out.println("Empresa guardada con ID: " + empresa.getId());</code></pre>
+                </section>
+
+                <!-- DESARROLLO -->
+                <section id="desarrollo">
+                    <h2>👨‍💻 Desarrollo Local</h2>
+                    
+                    <h3>Requisitos Previos</h3>
+                    <table>
+                        <tr>
+                            <th>Herramienta</th>
+                            <th>Versión Mínima</th>
+                            <th>Descargar</th>
+                        </tr>
+                        <tr>
+                            <td>Java JDK</td>
+                            <td>17+</td>
+                            <td><a href="https://www.oracle.com/java/technologies/downloads/">Oracle JDK</a></td>
+                        </tr>
+                        <tr>
+                            <td>Maven</td>
+                            <td>3.8+</td>
+                            <td><a href="https://maven.apache.org/download.cgi">Maven</a></td>
+                        </tr>
+                        <tr>
+                            <td>Git</td>
+                            <td>2.0+</td>
+                            <td><a href="https://git-scm.com/">Git</a></td>
+                        </tr>
+                        <tr>
+                            <td>IDE Recomendado</td>
+                            <td>-</td>
+                            <td>IntelliJ IDEA o Eclipse</td>
+                        </tr>
+                    </table>
+
+                    <h3>Setup del Entorno</h3>
+                    <div class="step">
+                        <h4>1. Clonar Repositorio</h4>
+                        <pre><code>git clone &lt;repository-url&gt;
+cd COA-Report-App</code></pre>
+                    </div>
+
+                    <div class="step">
+                        <h4>2. Verificar Java y Maven</h4>
+                        <pre><code>java -version
+mvn -version</code></pre>
+                    </div>
+
+                    <div class="step">
+                        <h4>3. Instalar Dependencias</h4>
+                        <pre><code>mvn clean install
+# Descarga todas las dependencias del pom.xml</code></pre>
+                    </div>
+
+                    <div class="step">
+                        <h4>4. Ejecutar en Desarrollo</h4>
+                        <pre><code>./run-coa.sh  # Linux/Mac
+run-coa.bat   # Windows</code></pre>
+                        <p>O directamente con Maven:</p>
+                        <pre><code>mvn clean compile exec:java</code></pre>
+                    </div>
+
+                    <h3>Variables de Entorno</h3>
+                    <pre><code># Linux/Mac
+export JAVA_HOME=/usr/libexec/java_home -v 17
+export M2_HOME=/usr/local/apache-maven-3.9.0
+export PATH=$JAVA_HOME/bin:$M2_HOME/bin:$PATH
+
+# Windows (PowerShell)
+$env:JAVA_HOME = "C:\Program Files\Java\jdk-17"
+$env:M2_HOME = "C:\apache-maven-3.9.0"</code></pre>
+
+                    <h3>Estructura de Desarrollo en IDE</h3>
+                    <p>Al abrir el proyecto en IDE (IntelliJ IDEA o Eclipse):</p>
+                    <ol>
+                        <li>Importar como Maven project</li>
+                        <li>Configurar JDK: Project Structure → Java 17+</li>
+                        <li>Marcar carpeta <code>src/main/java</code> como Source</li>
+                        <li>Marcar <code>src/main/resources</code> como Resources</li>
+                        <li>Maven → Reimport para descargar dependencias</li>
+                    </ol>
+
+                    <h3>Estructura de Carpetas del IDE</h3>
+                    <pre><code>COA-Report-App/
+├── src/main/java/com/coa/
+│   ├── COAReportApplication.java (main)
+│   ├── model/
+│   ├── dao/
+│   ├── service/
+│   ├── ui/
+│   └── util/
+├── src/main/resources/
+│   ├── fxml/
+│   ├── schema.sql
+│   ├── styles.css
+│   └── icons/
+├── target/ (generado por Maven)
+├── pom.xml
+└── .classpath (Eclipse)</code></pre>
+                </section>
+
+                <!-- COMPILACIÓN -->
+                <section id="compilacion">
+                    <h2>🔨 Compilación y Empaquetamiento</h2>
+                    
+                    <h3>Ciclo de Build Maven</h3>
+                    
+                    <div class="step">
+                        <h4>1. Limpiar y Compilar</h4>
+                        <pre><code>mvn clean compile
+# Elimina target/ y compila fuentes</code></pre>
+                    </div>
+
+                    <div class="step">
+                        <h4>2. Ejecutar Tests (si existen)</h4>
+                        <pre><code>mvn test
+# Ejecuta tests unitarios</code></pre>
+                    </div>
+
+                    <div class="step">
+                        <h4>3. Empaquetar como JAR</h4>
+                        <pre><code>mvn package
+# Crea target/coa-report-1.0.0-jar-with-dependencies.jar
+# Con todas las dependencias incluidas (fat JAR)</code></pre>
+                    </div>
+
+                    <h3>JAR con Dependencias Embebidas</h3>
+                    <p>El pom.xml está configurado con plugin maven-assembly-plugin para crear un JAR "fat" con todas las dependencias:</p>
+                    <pre><code>&lt;plugin&gt;
+    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+    &lt;artifactId&gt;maven-assembly-plugin&lt;/artifactId&gt;
+    &lt;executions&gt;
+        &lt;execution&gt;
+            &lt;phase&gt;package&lt;/phase&gt;
+            &lt;goals&gt;
+                &lt;goal&gt;single&lt;/goal&gt;
+            &lt;/goals&gt;
+            &lt;configuration&gt;
+                &lt;archive&gt;
+                    &lt;manifest&gt;
+                        &lt;mainClass&gt;com.coa.COAReportApplication&lt;/mainClass&gt;
+                    &lt;/manifest&gt;
+                &lt;/archive&gt;
+                &lt;descriptorRefs&gt;
+                    &lt;descriptorRef&gt;jar-with-dependencies&lt;/descriptorRef&gt;
+                &lt;/descriptorRefs&gt;
+            &lt;/configuration&gt;
+        &lt;/execution&gt;
+    &lt;/executions&gt;
+&lt;/plugin&gt;</code></pre>
+
+                    <h3>Ejecución del JAR</h3>
+                    <pre><code># Una vez compilado, ejecutar en cualquier sistema con Java 17+:
+java -jar target/coa-report-1.0.0-jar-with-dependencies.jar</code></pre>
+
+                    <h3>Generación de Instaladores con JPackage</h3>
+                    <p>Convertir JAR a instalador nativo (.MSI, .EXE, .DEB, etc.):</p>
+
+                    <div class="step">
+                        <h4>Opción 1: Windows MSI (desde PowerShell)</h4>
+                        <pre><code>$jPackage = "C:\Program Files\Java\jdk-21\bin\jpackage.exe"
+&$jPackage `
+  --input target `
+  --name COA-Report `
+  --main-jar coa-report-1.0.0-jar-with-dependencies.jar `
+  --main-class com.coa.COAReportApplication `
+  --type msi `
+  --java-options "-Xmx2G" `
+  --icon src/main/resources/icons/app-icon.ico `
+  --app-version 1.0.0</code></pre>
+                    </div>
+
+                    <div class="step">
+                        <h4>Opción 2: Windows EXE (desde PowerShell)</h4>
+                        <pre><code>$jPackage = "C:\Program Files\Java\jdk-21\bin\jpackage.exe"
+&$jPackage `
+  --input target `
+  --name COA-Report `
+  --main-jar coa-report-1.0.0-jar-with-dependencies.jar `
+  --main-class com.coa.COAReportApplication `
+  --type exe `
+  --win-console `
+  --java-options "-Xmx2G" `
+  --icon src/main/resources/icons/app-icon.ico</code></pre>
+                    </div>
+
+                    <div class="step">
+                        <h4>Opción 3: Linux DEB</h4>
+                        <pre><code>jpackage \
+  --input target \
+  --name coa-report \
+  --main-jar coa-report-1.0.0-jar-with-dependencies.jar \
+  --main-class com.coa.COAReportApplication \
+  --type deb \
+  --java-options "-Xmx2G" \
+  --icon src/main/resources/icons/app-icon-256.png \
+  --app-version 1.0.0</code></pre>
+                    </div>
+
+                    <h3>Scripts Automatizados</h3>
+                    <p>El proyecto incluye scripts para automatizar la compilación y empaquetamiento:</p>
+                    <ul>
+                        <li><code>build.sh</code> - Compila JAR localmente</li>
+                        <li><code>generate-exe.sh</code> - Genera EXE en Windows</li>
+                        <li><code>generate-msi.ps1</code> - Genera MSI en PowerShell</li>
+                        <li><code>generate-msi.bat</code> - Genera MSI en Batch</li>
+                    </ul>
+
+                    <div class="info-box">
+                        <strong>ℹ️ Requisito:</strong> Java 21 o superior con jpackage incluido en el JDK
+                    </div>
+                </section>
+
+                <!-- EXTENSIÓN -->
+                <section id="extension">
+                    <h2>🔧 Extensión y Customización</h2>
+                    
+                    <h3>Agregar Nuevo Modelo de Datos</h3>
+                    <p>Ejemplo: Agregar tabla TRANSPORTES para vehículos específicos</p>
+
+                    <div class="step">
+                        <h4>1. Crear Modelo (com.coa.model.Transporte.java)</h4>
+                        <pre><code>package com.coa.model;
+
+public class Transporte {
+    private int id;
+    private String placa;
+    private String marca;
+    private String modelo;
+    private int capacidadLT;
+    private int empresaId;
+    private int activo;
+
+    // Getters y Setters
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+    // ... más getters/setters
+}</code></pre>
+                    </div>
+
+                    <div class="step">
+                        <h4>2. Actualizar schema.sql</h4>
+                        <pre><code>CREATE TABLE IF NOT EXISTS TRANSPORTES (
+    id_transporte  INTEGER PRIMARY KEY AUTOINCREMENT,
+    placa          TEXT    NOT NULL UNIQUE,
+    marca          TEXT    NOT NULL,
+    modelo         TEXT,
+    capacidad_lt   INTEGER NOT NULL,
+    empresa_id     INTEGER REFERENCES EMPRESAS(id_empresa),
+    activo         INTEGER NOT NULL DEFAULT 1
+);</code></pre>
+                    </div>
+
+                    <div class="step">
+                        <h4>3. Crear DAO (com.coa.dao.TransporteDAO.java)</h4>
+                        <pre><code>package com.coa.dao;
+
+import com.coa.model.Transporte;
+import com.coa.util.DatabaseManager;
+import java.sql.*;
+import java.util.*;
+
+public class TransporteDAO {
+    private static final String TABLE = "TRANSPORTES";
+
+    public Transporte create(Transporte t) throws Exception {
+        String sql = "INSERT INTO " + TABLE + 
+                     " (placa, marca, modelo, capacidad_lt, empresa_id, activo) " +
+                     "VALUES (?, ?, ?, ?, ?, 1)";
+        
+        try (Connection conn = DatabaseManager.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setString(1, t.getPlaca());
+            pstmt.setString(2, t.getMarca());
+            pstmt.setString(3, t.getModelo());
+            pstmt.setInt(4, t.getCapacidadLT());
+            pstmt.setInt(5, t.getEmpresaId());
+            
+            pstmt.executeUpdate();
+            
+            // Obtener ID generado
+            try (Statement stmt = conn.createStatement();
+                 ResultSet rs = stmt.executeQuery("SELECT last_insert_rowid() as id")) {
+                if (rs.next()) {
+                    t.setId(rs.getInt("id"));
+                }
+            }
+        }
+        return t;
+    }
+
+    public List&lt;Transporte&gt; getAll() throws Exception {
+        String sql = "SELECT * FROM " + TABLE + " WHERE activo = 1";
+        List&lt;Transporte&gt; list = new ArrayList&lt;&gt;();
+        
+        try (Connection conn = DatabaseManager.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            
+            while (rs.next()) {
+                Transporte t = new Transporte();
+                t.setId(rs.getInt("id_transporte"));
+                t.setPlaca(rs.getString("placa"));
+                // ... mapear otros campos
+                list.add(t);
+            }
+        }
+        return list;
+    }
+    
+    // ... implementar otros métodos CRUD
+}</code></pre>
+                    </div>
+
+                    <div class="step">
+                        <h4>4. Crear UI (TransporteDialog.fxml + Controller)</h4>
+                        <pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;?import javafx.geometry.Insets?&gt;
+&lt;?import javafx.scene.control.*?&gt;
+&lt;?import javafx.scene.layout.*?&gt;
+
+&lt;BorderPane xmlns="http://javafx.com/javafx"
+            fx:controller="com.coa.ui.TransporteDialogController"&gt;
+    &lt;center&gt;
+        &lt;VBox spacing="10" style="-fx-padding: 15;"&gt;
+            &lt;Label text="Placa:" style="-fx-font-weight: bold;"/&gt;
+            &lt;TextField fx:id="placaField"/&gt;
+            
+            &lt;Label text="Marca:" style="-fx-font-weight: bold;"/&gt;
+            &lt;TextField fx:id="marcaField"/&gt;
+            
+            &lt;Label text="Modelo:" style="-fx-font-weight: bold;"/&gt;
+            &lt;TextField fx:id="modeloField"/&gt;
+            
+            &lt;Label text="Capacidad (LT):" style="-fx-font-weight: bold;"/&gt;
+            &lt;TextField fx:id="capacidadField"/&gt;
+        &lt;/VBox&gt;
+    &lt;/center&gt;
+&lt;/BorderPane&gt;</code></pre>
+                    </div>
+
+                    <h3>Agregar Nuevo Servicio</h3>
+                    <p>Ejemplo: Crear servicio de notificaciones por correo</p>
+
+                    <pre><code>package com.coa.service;
+
+public class NotificationService {
+    
+    public static void sendManifiestoAlert(Manifiesto m, String emailTo) throws Exception {
+        String subject = "Nuevo Manifiesto: " + m.getNumManifiesto();
+        String body = "Se ha registrado un nuevo manifiesto:\n" +
+                      "Empresa: " + m.getEmpresaGeneradora().getNombre() + "\n" +
+                      "Residuo: " + m.getResiduoNombre() + "\n" +
+                      "Cantidad: " + m.getCantidad() + " " + m.getUnidad();
+        
+        // Implementar lógica de envío
+        sendEmail(emailTo, subject, body);
+    }
+    
+    private static void sendEmail(String to, String subject, String body) throws Exception {
+        // Usar JavaMail o servicio externo
+    }
+}</code></pre>
+
+                    <h3>Extender Funcionalidad de Reportes</h3>
+                    <p>Agregar nuevo tipo de reporte:</p>
+
+                    <pre><code>// En ReportService.java
+public static byte[] generateManifiestosPorEmpresa(int empresaId, 
+                                                    LocalDate desde, 
+                                                    LocalDate hasta) throws Exception {
+    ManifiestoDAO dao = new ManifiestoDAO();
+    List&lt;Manifiesto&gt; manifiestos = dao.searchByEmpresaAndDateRange(
+        empresaId, desde, hasta
+    );
+    
+    // Crear documento
+    XSSFWorkbook wb = new XSSFWorkbook();
+    XSSFSheet sheet = wb.createSheet("Manifiestos");
+    
+    // Agregar datos
+    int rowNum = 0;
+    for (Manifiesto m : manifiestos) {
+        Row row = sheet.createRow(rowNum++);
+        row.createCell(0).setCellValue(m.getNumManifiesto());
+        row.createCell(1).setCellValue(m.getCantidad());
+        // ... más columnas
+    }
+    
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    wb.write(baos);
+    return baos.toByteArray();
+}</code></pre>
+
+                    <h3>Puntos de Extensión Comunes</h3>
+                    <table>
+                        <tr>
+                            <th>Área</th>
+                            <th>Ubicación</th>
+                            <th>Ejemplo</th>
+                        </tr>
+                        <tr>
+                            <td>Autenticación</td>
+                            <td>AuthenticationService</td>
+                            <td>Integrar LDAP/OAuth</td>
+                        </tr>
+                        <tr>
+                            <td>Persistencia</td>
+                            <td>DAOs</td>
+                            <td>Cambiar a PostgreSQL/MySQL</td>
+                        </tr>
+                        <tr>
+                            <td>Reportes</td>
+                            <td>ReportService</td>
+                            <td>Agregar PDF/charts</td>
+                        </tr>
+                        <tr>
+                            <td>Interfaz</td>
+                            <td>FXML files</td>
+                            <td>Nuevas pantallas/funcionalidad</td>
+                        </tr>
+                        <tr>
+                            <td>Integración</td>
+                            <td>Service layer</td>
+                            <td>APIs externas, webhooks</td>
+                        </tr>
+                    </table>
+                </section>
+
+                <!-- DEPLOYMENT -->
+                <section id="deployment">
+                    <h2>🚀 Deployment en Producción</h2>
+                    
+                    <h3>Preparación Pre-Deployment</h3>
+                    <div class="step">
+                        <h4>1. Actualizar Versión</h4>
+                        <p>En pom.xml:</p>
+                        <pre><code>&lt;version&gt;1.0.0&lt;/version&gt; → &lt;version&gt;1.0.1&lt;/version&gt;</code></pre>
+                    </div>
+
+                    <div class="step">
+                        <h4>2. Actualizar Changelog</h4>
+                        <p>Documentar cambios en changelog.md:</p>
+                        <pre><code>## [1.0.1] - 2025-04-16
+
+### Added
+- Nueva funcionalidad de reportes
+
+### Fixed
+- Bug en descarga de Excel
+
+### Changed
+- Mejoras de performance en queries</code></pre>
+                    </div>
+
+                    <div class="step">
+                        <h4>3. Testing Completo</h4>
+                        <pre><code># Testing local
+mvn clean test
+
+# Testing manual
+./run-coa.sh
+
+# Verificar todas las funcionalidades principales</code></pre>
+                    </div>
+
+                    <h3>Build para Producción</h3>
+                    <pre><code># Compilar sin tests
+mvn clean package -DskipTests
+
+# Generar JAR con dependencias
+mvn clean package -DskipTests assembly:single
+
+# Verificar artifact
+ls -la target/coa-report-1.0.0-jar-with-dependencies.jar</code></pre>
+
+                    <h3>Generar Instaladores</h3>
+                    <div class="step">
+                        <h4>Windows MSI</h4>
+                        <pre><code>./generate-msi.ps1  # Desde PowerShell
+# O ejecutar
+generate-msi.bat    # Desde Command Prompt</code></pre>
+                    </div>
+
+                    <div class="step">
+                        <h4>Windows EXE</h4>
+                        <pre><code>./generate-exe.sh   # Linux/Mac
+# O crear script .ps1 equivalente</code></pre>
+                    </div>
+
+                    <div class="step">
+                        <h4>Linux DEB</h4>
+                        <pre><code>jpackage \
+  --input target \
+  --name coa-report \
+  --main-jar coa-report-1.0.0-jar-with-dependencies.jar \
+  --main-class com.coa.COAReportApplication \
+  --type deb \
+  --app-version 1.0.0</code></pre>
+                    </div>
+
+                    <h3>Distribución</h3>
+                    <ul>
+                        <li><strong>GitHub Releases:</strong> Subir instaladores como artefactos</li>
+                        <li><strong>Servidor Web:</strong> Hosting en servidor HTTP/HTTPS</li>
+                        <li><strong>Microsoft Store/AppStore:</strong> Para visibilidad</li>
+                        <li><strong>Auto-update:</strong> Implementar mecanismo de actualizaciones automáticas</li>
+                    </ul>
+
+                    <h3>Migración de Base de Datos</h3>
+                    <p>Para usuarios que upgraan desde versión anterior:</p>
+
+                    <div class="step">
+                        <h4>1. Hacer Backup</h4>
+                        <pre><code># El BackupService puede ser usado
+BackupService.backup("coareport.db", "backup-v1.0.0.db");</code></pre>
+                    </div>
+
+                    <div class="step">
+                        <h4>2. Ejecutar Migrations</h4>
+                        <pre><code>// En DatabaseManager
+if (versionActual < versionNueva) {
+    executeMigration(versionActual, versionNueva);
+}</code></pre>
+                    </div>
+
+                    <h3>Monitoreo en Producción</h3>
+                    <table>
+                        <tr>
+                            <th>Métrica</th>
+                            <th>Ubicación</th>
+                            <th>Acción</th>
+                        </tr>
+                        <tr>
+                            <td>Logs de Error</td>
+                            <td>System.err, logs/</td>
+                            <td>Revisar periódicamente</td>
+                        </tr>
+                        <tr>
+                            <td>Tamaño BD</td>
+                            <td>coareport.db size</td>
+                            <td>Hacer backups regulares</td>
+                        </tr>
+                        <tr>
+                            <td>Performance</td>
+                            <td>Tiempo de query</td>
+                            <td>Optimizar si es lento</td>
+                        </tr>
+                        <tr>
+                            <td>Seguridad</td>
+                            <td>Acceso de usuarios</td>
+                            <td>Auditar logins/cambios</td>
+                        </tr>
+                    </table>
+
+                    <div class="warning-box">
+                        <strong>⚠️ Importante:</strong> Mantener backups automáticos regulares. La BD es crítica para el negocio.
+                    </div>
+                </section>
+
+                <!-- TROUBLESHOOTING TÉCNICO -->
+                <section id="troubleshooting-tech">
+                    <h2>🔍 Debugging y Troubleshooting Técnico</h2>
+                    
+                    <h3>Errores Comunes de Compilación</h3>
+                    
+                    <div class="step">
+                        <h4>Error: "No compiler is provided"</h4>
+                        <p><strong>Causa:</strong> JRE en lugar de JDK</p>
+                        <pre><code>java -version  # Debe mostrar "javac"
+javac -version # Debe funcionar
+
+# Solución: Instalar JDK (no JRE)
+export JAVA_HOME=/usr/libexec/java_home -v 17</code></pre>
+                    </div>
+
+                    <div class="step">
+                        <h4>Error: "Failed to load class "org.apache.maven.project.ProjectBuilder"</h4>
+                        <p><strong>Causa:</strong> Repositorio Maven corrupto</p>
+                        <pre><code># Limpiar caché local
+rm -rf ~/.m2/repository/
+
+# Reinstalar dependencias
+mvn clean install</code></pre>
+                    </div>
+
+                    <div class="step">
+                        <h4>Error: "Cannot find symbol"</h4>
+                        <p><strong>Causa:</strong> Dependencia faltante</p>
+                        <pre><code># Limpiar e reinstalar
+mvn clean compile
+
+# Si persiste, verificar pom.xml y actualizar dependencias
+mvn dependency:tree</code></pre>
+                    </div>
+
+                    <h3>Errores en Tiempo de Ejecución</h3>
+                    
+                    <div class="step">
+                        <h4>Error: "database is locked"</h4>
+                        <p><strong>Causa:</strong> Múltiples conexiones simultáneas</p>
+                        <pre><code>// En DatabaseManager.java - usar connection pooling
+// O aumentar timeout SQLite
+PRAGMA busy_timeout = 5000;</code></pre>
+                    </div>
+
+                    <div class="step">
+                        <h4>Error: "Duplicate column name"</h4>
+                        <p><strong>Causa:</strong> Schema.sql ejecutado múltiples veces sin IF NOT EXISTS</p>
+                        <pre><code>// Solución: Borrar BD y reiniciar
+rm coareport.db
+./run-coa.sh  # Se creará nueva BD</code></pre>
+                    </div>
+
+                    <div class="step">
+                        <h4>Error: "No suitable driver found"</h4>
+                        <p><strong>Causa:</strong> Falta JDBC driver para SQLite</p>
+                        <pre><code>// Verificar en pom.xml que existe:
+&lt;dependency&gt;
+    &lt;groupId&gt;org.xerial&lt;/groupId&gt;
+    &lt;artifactId&gt;sqlite-jdbc&lt;/artifactId&gt;
+    &lt;version&gt;3.44.0.0&lt;/version&gt;
+&lt;/dependency&gt;
+
+// Reinstalar
+mvn clean install</code></pre>
+                    </div>
+
+                    <h3>Errores de UI/JavaFX</h3>
+                    
+                    <div class="step">
+                        <h4>Error: "Exception in Application.launch()"</h4>
+                        <p><strong>Causa:</strong> Problema en stage o setup inicial</p>
+                        <pre><code>// Verificar en COAReportApplication.java
+try {
+    FXMLLoader loader = new FXMLLoader(
+        getClass().getResource("/fxml/main.fxml")
+    );
+    // ...
+} catch (Exception e) {
+    e.printStackTrace();  // Ver detalles del error
+}</code></pre>
+                    </div>
+
+                    <div class="step">
+                        <h4>Error: "Cannot load FXML"</h4>
+                        <p><strong>Causa:</strong> Archivo FXML no encontrado</p>
+                        <pre><code>// Verificar estructura de carpetas
+src/main/resources/fxml/  # Debe existir
+
+// Verify ruta en código
+getClass().getResource("/fxml/main.fxml")  # Debe ser correcto</code></pre>
+                    </div>
+
+                    <h3>Debugging Avanzado</h3>
+                    
+                    <div class="step">
+                        <h4>Ejecutar con Logs Verbosos</h4>
+                        <pre><code>java -Dorg.slf4j.simpleLogger.defaultLogLevel=debug \
+     -jar target/coa-report-1.0.0-jar-with-dependencies.jar</code></pre>
+                    </div>
+
+                    <div class="step">
+                        <h4>Inspeccionar Base de Datos</h4>
+                        <pre><code># Abrir BD con herramienta GUI
+sqlite3 coareport.db
+
+# Query de prueba
+sqlite&gt; SELECT COUNT(*) FROM MANIFIESTOS;
+sqlite&gt; .tables
+sqlite&gt; .schema MANIFIESTOS</code></pre>
+                    </div>
+
+                    <div class="step">
+                        <h4>Profiling de Performance</h4>
+                        <pre><code>// Agregar timing en métodos críticos
+long start = System.currentTimeMillis();
+// ... código
+long elapsed = System.currentTimeMillis() - start;
+System.out.println("Query ejecutada en: " + elapsed + "ms");</code></pre>
+                    </div>
+
+                    <h3>Recursos de Debugging</h3>
+                    <ul>
+                        <li><strong>Stack Overflow:</strong> Buscar error exacto</li>
+                        <li><strong>Maven Central:</strong> Verificar versión de dependencias</li>
+                        <li><strong>JavaFX Documentation:</strong> https://gluonhq.com/products/javafx/</li>
+                        <li><strong>SQLite Documentation:</strong> https://www.sqlite.org/docs.html</li>
+                        <li><strong>IDE Debugger:</strong> Usar breakpoints en IntelliJ/Eclipse</li>
+                    </ul>
+                </section>
+            </main>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 COA-Report - Sistema de Gestión de Residuos Peligrosos</p>
+            <p>Manual Técnico - Versión 1.0.0 | <a href="installation-guide.html">Manual de Instalación</a></p>
+        </footer>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('section');
+            sections.forEach(s => s.classList.remove('active'));
+            
+            // Show selected section
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.classList.add('active');
+            }
+            
+            // Update nav links
+            const navLinks = document.querySelectorAll('nav a');
+            navLinks.forEach(link => link.classList.remove('active'));
+            
+            // Add active class to clicked link
+            const clickedLink = document.querySelector(`nav a[onclick*="${sectionId}"]`);
+            if (clickedLink) {
+                clickedLink.classList.add('active');
+            }
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        function filterNav() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toLowerCase();
+            const menu = document.getElementById('navMenu');
+            const links = menu.getElementsByTagName('a');
+
+            for (let link of links) {
+                const text = link.textContent.toLowerCase();
+                link.parentElement.style.display = text.includes(filter) ? '' : 'none';
+            }
+        }
+
+        // Add accordion functionality
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', function() {
+                const accordion = this.parentElement;
+                accordion.classList.toggle('active');
+                
+                // Update icon
+                const span = this.querySelector('span');
+                span.textContent = accordion.classList.contains('active') ? '−' : '+';
+            });
+        });
+
+        // Initialize first accordion items
+        document.querySelectorAll('.accordion:first-of-type .accordion-header').forEach(header => {
+            header.parentElement.classList.add('active');
+            header.querySelector('span').textContent = '−';
+        });
+    </script>
+</body>
+</html>
